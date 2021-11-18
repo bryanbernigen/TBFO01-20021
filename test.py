@@ -11,14 +11,16 @@ R = {
     # STARTSTATE=================================================================================
     # harus bisa mangil semua state
     "S":
-        # ifstate
+    # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "SELSE"],
-     # importstate
+     # IMPORTSTATE
      ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
         "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
-        # CONDITIONALSTATE
-        ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONALSTATE", "OPERATORCONDITIONAL"], ["LOGICOPERATORCONDITIONAL", "CONDITIONALSTATE"], [
+     # CONDITIONALSTATE
+     ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONALSTATE", "OPERATORCONDITIONAL"], ["LOGICOPERATORCONDITIONAL", "CONDITIONALSTATE"], [
             "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
+     # NOTSTATE
+     ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"],
      ["b"]],
     "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"], ["IFSTATE", "ENDSTATE"],
            ["IFSTATE", "SS"], ["IFSTATE", "S"], ["IFSTATE", "ENDSTATE"],
@@ -65,9 +67,7 @@ R = {
     "NOTSESUATU": [["NOT", "CONDITIONALSTATE"]],
     "KURUNGKIRINOT": [["KURUNGKIRI", "NOTSESUATU"]],
 
-        # TRUEORFALSESTATE==================================================================================
-
-        # variabel====================================================================================
+    # variabel====================================================================================
     "VAR": [["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"]],
