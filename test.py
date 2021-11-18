@@ -5,6 +5,15 @@
 non_terminals = []
 terminals = [":", "(", ")", "as", "else", "elif",
              "from", "if", "import", "not"]
+'''
+yang di append : num / var
+yang berubah:
+1. S di bagian conditional state
+2. conditional state
+3. conditional ngulang
+4. conditional
+5. varngulang
+'''
 
 # Rules of the grammar
 R = {
@@ -21,18 +30,30 @@ R = {
             "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
      # NOTSTATE
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"],
+     # ASSIGNSTATE
+     ["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"],
      ["b"]],
     "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"], ["IFSTATE", "ENDSTATE"],
            ["IFSTATE", "SS"], ["IFSTATE", "S"], ["IFSTATE", "ENDSTATE"],
            ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"], [
                "CONDITIONALSTATE", "ENDSTATE"],
            ["NOTSTATE", "SS"], ["NOTSTATE", "S"], ["NOTSTATE", "ENDSTATE"],
+           ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"], [
+               "ASSIGNSTATE", "ENDSTATE"],
            ["b"]],
     "ENDSTATE": [["."]],
 
+    # ASSIGMENT STATE=============================================================================
+    "ASSIGNSTATE": [["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"]],
+    "VARNGULANGASSIGNMENT": [["VARNGULANG", "SAMADENGAN"]],
+    "VARNGULANG": [["VARKOMA", "VAR"], ["numpy"], ["np"]],
+    "VARKOMA": [["VAR", "KOMA"]],
+    "CONDITIONALNGULANG": [["CONDITIONALSTATEKOMA", "CONDITIONALSTATE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "CONDITIONALSTATEKOMA": [["CONDITIONALSTATE", "KOMA"]],
+
     # CONDITIONAL=================================================================================
-    "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"]],
-    "CONDITIONAL": [["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"]],
+    "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "CONDITIONAL": [["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "OPERATORCONDITIONAL": [["OPERATOR", "CONDITIONAL"]],
     "LOGICOPERATORCONDITIONAL": [["LOGICOPERATOR", "CONDITIONALSTATE"]],
     "KURUNGKIRICONDITIONAL": [["KURUNGKIRI", "CONDITIONAL"]],
@@ -74,12 +95,12 @@ R = {
         "NOT": [["not"], ["!"]],
     "KURUNGKIRI": [["("]],
     "KURUNGKANAN": [[")"]],
+    "KOMA": [[","]],
+    "SAMADENGAN": [["="]],
 
     # NUMBER========================================================================================
-    "NUMBER": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"]],
+    "NUMBER": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "BOL": [["True"], ["False"]],
-    "FLOAT": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["FLOAT", "FLOAT"]],
-    "TITIK": [["."]],
 }
 
 # Function to perform the CYK Algorithm
