@@ -24,13 +24,13 @@ R = {
            ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"],
            ["NOTSTATE", "SS"], ["NOTSTATE", "S"],
            ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
+           ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
            ["b"]],
     "S":
     # IFSTATE
-    [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "SELSE"],
+    [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"], ["IFCON2", "SELSE"],
      # IMPORTSTATE
-     ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
-        "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
+    ["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"],
      # CONDITIONALSTATE
      ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONALSTATE", "OPERATORCONDITIONAL"], ["LOGICOPERATORCONDITIONAL", "CONDITIONALSTATE"], [
             "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
@@ -38,6 +38,8 @@ R = {
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"],
      # ASSIGNSTATE
      ["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"],
+     # ASSIGNMENTNOTUPLESTATE
+     ["VARMULTIOP", "CONDITIONALSTATE"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -48,7 +50,10 @@ R = {
     "CONDITIONALNGULANG": [["CONDITIONALSTATEKOMA", "CONDITIONALSTATE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "CONDITIONALSTATEKOMA": [["CONDITIONALSTATE", "KOMA"]],
 
-        # ASSIGNMENT NOTUPLE===========================================================================
+    # ASSIGNMENT NOTUPLE===========================================================================
+    "ASSIGNMENTNOTUPLESTATE": [["VARMULTIOP", "CONDITIONALSTATE"]],
+    "VARMULTIOP": [["VAR", "MULTIOP"]],
+    
 
     # CONDITIONAL=================================================================================
     "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
@@ -89,8 +94,9 @@ R = {
 
     # variabel====================================================================================
     "VAR": [["numpy"], ["np"]],
-    "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"]],
+    "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"]],
+    "MULTIOP": [["+="], ["-="], ["*="], ["/="], ["%="], ["//="], ["**="], ["&="], ["|="], ["^="], [">>="], ["<<="]],
     "NOT": [["not"], ["!"]],
     "KURUNGKIRI": [["("]],
     "KURUNGKANAN": [[")"]],
