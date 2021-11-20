@@ -19,6 +19,12 @@ yang berubah:
 R = {
     # STARTSTATE=================================================================================
     # harus bisa mangil semua state
+    "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"],
+           ["IFSTATE", "SS"], ["IFSTATE", "S"],
+           ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"],
+           ["NOTSTATE", "SS"], ["NOTSTATE", "S"],
+           ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
+           ["b"]],
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "SELSE"],
@@ -33,15 +39,6 @@ R = {
      # ASSIGNSTATE
      ["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"],
      ["b"]],
-    "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"], ["IFSTATE", "ENDSTATE"],
-           ["IFSTATE", "SS"], ["IFSTATE", "S"], ["IFSTATE", "ENDSTATE"],
-           ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"], [
-               "CONDITIONALSTATE", "ENDSTATE"],
-           ["NOTSTATE", "SS"], ["NOTSTATE", "S"], ["NOTSTATE", "ENDSTATE"],
-           ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"], [
-               "ASSIGNSTATE", "ENDSTATE"],
-           ["b"]],
-    "ENDSTATE": [["."]],
 
     # ASSIGMENT STATE=============================================================================
     "ASSIGNSTATE": [["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"]],
@@ -50,6 +47,8 @@ R = {
     "VARKOMA": [["VAR", "KOMA"]],
     "CONDITIONALNGULANG": [["CONDITIONALSTATEKOMA", "CONDITIONALSTATE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "CONDITIONALSTATEKOMA": [["CONDITIONALSTATE", "KOMA"]],
+
+        # ASSIGNMENT NOTUPLE===========================================================================
 
     # CONDITIONAL=================================================================================
     "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
@@ -92,7 +91,7 @@ R = {
     "VAR": [["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"]],
-        "NOT": [["not"], ["!"]],
+    "NOT": [["not"], ["!"]],
     "KURUNGKIRI": [["("]],
     "KURUNGKANAN": [[")"]],
     "KOMA": [[","]],
@@ -154,7 +153,7 @@ def cykParse(w):
 
 # Given string
 a = input()
-a += (" .")
+#a += (" .")
 w = a.split()
 
 # Function Call
