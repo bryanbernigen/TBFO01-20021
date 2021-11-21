@@ -13,6 +13,7 @@ yang berubah:
 3. conditional ngulang
 4. conditional
 5. varngulang
+6. ISIRANGE <-- VAR sama NUM
 '''
 
 # Rules of the grammar
@@ -25,21 +26,25 @@ R = {
            ["NOTSTATE", "SS"], ["NOTSTATE", "S"],
            ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
+           ["RANGESTATE", "SS"], ["RANGESTATE", "S"],
            ["b"]],
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"], ["IFCON2", "SELSE"],
      # IMPORTSTATE
-    ["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"],
+     ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
+         "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
      # CONDITIONALSTATE
      ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONALSTATE", "OPERATORCONDITIONAL"], ["LOGICOPERATORCONDITIONAL", "CONDITIONALSTATE"], [
-            "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
+        "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
      # NOTSTATE
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"],
      # ASSIGNSTATE
      ["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"],
      # ASSIGNMENTNOTUPLESTATE
      ["VARMULTIOP", "CONDITIONALSTATE"],
+     # RANGE
+     ["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -53,7 +58,7 @@ R = {
     # ASSIGNMENT NOTUPLE===========================================================================
     "ASSIGNMENTNOTUPLESTATE": [["VARMULTIOP", "CONDITIONALSTATE"]],
     "VARMULTIOP": [["VAR", "MULTIOP"]],
-    
+
 
     # CONDITIONAL=================================================================================
     "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
@@ -75,7 +80,7 @@ R = {
     "I_IF": [["if"]],
     "E_ELSE": [["else"]],
     "E_ELIF": [["elif"]],
-    "T2": [[":"]],
+
 
     # importing===================================================================================
     "IMPORTSTATE": [["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"]],
@@ -86,6 +91,14 @@ R = {
     "A_AS": [["as"]],
     "F_FROM": [["from"]],
     "I_IMPORT": [["import"]],
+
+    # RANGE========================================================================================
+    "RANGESTATE": [["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"]],
+    "R_RANGEKURUNGKIRI": [["R_RANGE", "KURUNGKIRI"]],
+    "ISIRANGEKURUNGKANAN": [["ISIRANGE", "KURUNGKANAN"]],
+    "R_RANGE": [["range"]],
+    "ISIRANGE": [["CONDITIONALSTATE", "NGULANGISIRANGE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "NGULANGISIRANGE": [["KOMA", "ISIRANGE"]],
 
     # NOTSTATE=====================================================================================
     "NOTSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"]],
@@ -102,6 +115,7 @@ R = {
     "KURUNGKANAN": [[")"]],
     "KOMA": [[","]],
     "SAMADENGAN": [["="]],
+    "T2": [[":"]],
 
     # NUMBER========================================================================================
     "NUMBER": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
