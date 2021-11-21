@@ -27,6 +27,7 @@ R = {
            ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
            ["RANGESTATE", "SS"], ["RANGESTATE", "S"],
+           ["FORSTATE", "SS"], ["FORSTATE", "S"],
            ["b"]],
     "S":
     # IFSTATE
@@ -45,6 +46,9 @@ R = {
      ["VARMULTIOP", "CONDITIONALSTATE"],
      # RANGE
      ["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"],
+     # FORSTATE
+     ["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], [
+         "F_FORVARI_IN", "RANGESTATET2"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -66,6 +70,16 @@ R = {
     "OPERATORCONDITIONAL": [["OPERATOR", "CONDITIONAL"]],
     "LOGICOPERATORCONDITIONAL": [["LOGICOPERATOR", "CONDITIONALSTATE"]],
     "KURUNGKIRICONDITIONAL": [["KURUNGKIRI", "CONDITIONAL"]],
+
+    # FORSTATE=====================================================================================
+    "FORSTATE": [["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], ["F_FORVARI_IN", "RANGESTATET2"]],
+    "F_FOR": [["for"]],
+    "F_FORVAR": [["F_FOR", "VAR"]],
+    "I_IN": [["in"]],
+    "F_FORVARI_IN": [["F_FORVAR", "I_IN"]],
+    "VART2": [["VAR", "T2"]],
+    "NUMBERT2": [["NUMBER", "T2"]],
+    "RANGESTATET2": [["RANGESTATE", "T2"]],
 
     # periIFan====================================================================================
     "IFSTATE": [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"], ["IFCON2", "SELSE"]],
