@@ -1,4 +1,4 @@
-@@ -0,0 +1,180 @@
+
 import keyword
 trans_table = {
     'start':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr'},
@@ -14,7 +14,7 @@ trans_table = {
 }
 
 wrong_string_state = ['buang', 'failstr4', 'failstr5', 'failstr7']
-valid_symbols = ['+','-','*','/','//','%', '**','=','+=','-=', '*=', '/=', '%=', '//=', '**=', '&=', '|=', '^=','>>=','<<=','==','!=', '>','<', '>=','<=','&','|','^','~','<<','>>',':']
+valid_symbols = ['print','+','-','*','/','//','%', '**','=','+=','-=', '*=', '/=', '%=', '//=', '**=', '&=', '|=', '^=','>>=','<<=','==','!=', '>','<', '>=','<=','&','|','^','~','<<','>>',':','(',')','[',']','{','}']
 def dfa(transitions,initial,s):
     state = initial
     for c in s:
@@ -175,7 +175,7 @@ with open("input.py",'r') as f:
                 print(tok + " wrong variables")
                 break
             else :
-                if not(tok in valid_symbols):
+                if not(tok in valid_symbols) and not(tok in keyword.kwlist):
                     variables.append(tok)
     print(variables)
     print(newTokens)
