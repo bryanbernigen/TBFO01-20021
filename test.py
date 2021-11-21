@@ -19,6 +19,10 @@ yang berubah:
 # Rules of the grammar
 R = {
     # STARTSTATE=================================================================================
+    # STARTSTATE
+    "START": [["TITIK", "SS"], ["TITIK", "S"]],
+    "TITIK": [["."]],
+
     # harus bisa mangil semua state
     "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"],
            ["IFSTATE", "SS"], ["IFSTATE", "S"],
@@ -194,8 +198,9 @@ def cykParse(w):
 
 # Given string
 a = input()
-#a += (" .")
-w = a.split()
+b = ". "
+b += a
+w = b.split()
 
 # Function Call
 cykParse(w)
