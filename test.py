@@ -28,6 +28,7 @@ R = {
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
            ["RANGESTATE", "SS"], ["RANGESTATE", "S"],
            ["FORSTATE", "SS"], ["FORSTATE", "S"],
+           ["WHILESTATE", "SS"], ["WHILESTATE", "S"],
            ["b"]],
     "S":
     # IFSTATE
@@ -49,6 +50,8 @@ R = {
      # FORSTATE
      ["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], [
          "F_FORVARI_IN", "RANGESTATET2"],
+     # WHILESTATE
+     ["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -134,6 +137,10 @@ R = {
     # NUMBER========================================================================================
     "NUMBER": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "BOL": [["True"], ["False"]],
+
+    # WHILE============================================================================================
+    "WHILESTATE" : [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
+    "W_WHILE" : [["while"]],
 }
 
 # Function to perform the CYK Algorithm
