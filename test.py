@@ -55,8 +55,7 @@ R = {
      # RANGE
      ["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"],
      # FORSTATE
-     ["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], [
-         "F_FORVARI_IN", "RANGESTATET2"],
+    ["HEADERFOR","BREAKULANG"],["HEADERFOR","SS"],["HEADERFOR","S"],["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"],
      # WHILESTATE
      ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"],
      ["b"]],
@@ -82,7 +81,8 @@ R = {
     "KURUNGKIRICONDITIONAL": [["KURUNGKIRI", "CONDITIONAL"]],
 
     # FORSTATE=====================================================================================
-    "FORSTATE": [["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], ["F_FORVARI_IN", "RANGESTATET2"]],
+    "FORSTATE" : [["HEADERFOR","BREAKULANG"],["HEADERFOR","SS"],["HEADERFOR","S"],["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"]],
+    "HEADERFOR": [["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"]],
     "F_FOR": [["for"]],
     "F_FORVAR": [["F_FOR", "VAR"]],
     "I_IN": [["in"]],
