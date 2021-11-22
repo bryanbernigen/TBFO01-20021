@@ -39,7 +39,7 @@ R = {
            ["b"]],
     "S":
     # IFSTATE
-    [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"], ["IFCON2", "SELSE"],
+    [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
      # IMPORTSTATE
      ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
          "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
@@ -92,9 +92,9 @@ R = {
     "RANGESTATET2": [["RANGESTATE", "T2"]],
 
     # periIFan====================================================================================
-    "IFSTATE": [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"], ["IFCON2", "SELSE"]],
-    "ELIF": [["E_ELIFCON2", "SELIF"], ["E_ELIFCON2", "SELSE"], ["E_ELIFCON2", "SS"], ["E_ELIFCON2", "S"]],
-    "ELSE": [["E_ELSE", "T2SS"]],
+    "IFSTATE": [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"]],
+    "ELIF": [["E_ELIFCON2", "SELIF"], ["E_ELIFCON2", "SELSE"], ["E_ELIFCON2", "ELIF"],["E_ELIFCON2", "SS"],["E_ELIFCON2", "ELSE"], ["E_ELIFCON2", "S"],["E_ELIF", "CON2"]],
+    "ELSE": [["E_ELSE", "T2SS"],["E_ELSE","T2"]],
     "IFCON2": [["I_IF", "CON2"]],
     "CON2": [["CONDITIONALSTATE", "T2"]],
     "SELIF": [["SS", "ELIF"], ["S", "ELIF"]],
@@ -153,6 +153,7 @@ R = {
 # Function to perform the CYK Algorithm
 
 # tokens -> untuk diperiksa CYK, variables diappend ke CNF
+'''
 berhasil, tokens,variables = readtokens()
 for vars in variables :
     R["S"].append(vars)
@@ -164,7 +165,7 @@ for vars in variables :
     R["ISIRANGE"].append(vars)
     R["VAR"].append(vars)
     R["NUMBER"].append(vars)
-
+'''
 def cykParse(w):
     n = len(w)
 
