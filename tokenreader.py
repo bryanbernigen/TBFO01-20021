@@ -95,7 +95,7 @@ def readtokens():
                     StartKomen2 = not StartKomen2
                 elif state in wrong_string_state:
                     print("SyntaxError: EOF while scanning triple-quoted string literal")
-                    return False, [], []
+                    return False, [], [], []
                     break
                 else:
                     newTokens.append(tok)
@@ -112,7 +112,7 @@ def readtokens():
                     StartKomen1 = not StartKomen1
                 elif state in wrong_string_state :
                     print("SyntaxError: EOF while scanning triple-quoted string literal")
-                    return False, [], []
+                    return False, [], [], []
                     break
                 else:
                     Tokens.append(tok)
@@ -123,7 +123,7 @@ def readtokens():
         #print(Tokens)
         if StartKomen2 == True or StartKomen1 == True:
             print("SyntaxError: EOF while scanning triple-quoted string literal")
-            return False, [], []
+            return False, [], [], []
 
         # Delete komen #
         StartHash = False
@@ -174,20 +174,23 @@ def readtokens():
 
         if StartStr1 == True or StartStr2 == True :
             print("SyntaxError: EOL while scanning string literal")
-            return False, [], []
+            return False, [], [], []
 
         variables = []
-        strings = []
+        numbers = []
         for tok in newTokens :
             if tok[0] == "'" or tok[0] == '"':
                 variables.append(tok)
             else:
                 if dfa(trans_table,'start', tok) == 'buang' and not (tok in valid_symbols) and dfa(trans_angka,'start',tok) == 'buang':
-                    print(tok)
                     print("SyntaxError: invalid syntax")
-                    return False, [], []
+                    return False, [], [], []
                     break
                 else :
-                    if not(tok in valid_symbols) and not(tok in keyword.kwlist):
+                    if not(tok in valid_symbols) and not(tok in keyword.kwlist) and not(dfa(trans_angka,'start', tok) == 'angka'):
                         variables.append(tok)
-        return True, newTokens, variables
+                    elif not(tok in valid_symbols) and not(tok in keyword.kwlist):
+                        numbers.append(tok)
+        variables = list(set(variables))
+        numbers = list(set(numbers))
+        return True, newTokens, variables, numbers
