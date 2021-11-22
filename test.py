@@ -17,6 +17,8 @@ yang berubah:
 4. conditional
 5. varngulang
 6. ISIRANGE <-- VAR sama NUM
+7. ISIFUNC diisi VARNOFUNC
+8. SS DAN S DITAMBAHIN VAR DAN NUMM
 '''
 
 # Rules of the grammar
@@ -37,7 +39,8 @@ R = {
            ["FORSTATE", "SS"], ["FORSTATE", "S"],
            ["WHILESTATE", "SS"], ["WHILESTATE", "S"], 
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
-           ["pass"], ["SS", "SS"]],
+           ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
+           ["pass"], ["np"], ["SS", "SS"]],
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
@@ -45,8 +48,9 @@ R = {
      ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
          "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
      # CONDITIONALSTATE
-     ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONALSTATE", "OPERATORCONDITIONAL"], ["LOGICOPERATORCONDITIONAL", "CONDITIONALSTATE"], ["VARKURKI", "CONKOMAKURKAN"], [
-        "0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"], ["TITIK", "FLOAT"],
+     ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"],
+     # DEFSTATE
+     ["HEADERDEF","RETURNULANG"],["HEADERDEF","SS"],["HEADERDER","S"],["D_DEF", "FUNCT2"],
      # NOTSTATE
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"],
      # ASSIGNSTATE
@@ -54,7 +58,7 @@ R = {
      # ASSIGNMENTNOTUPLESTATE
      ["VARMULTIOP", "CONDITIONALSTATE"],
      # FUNCSTATE
-     ["VARKURKI", "CONKOMAKURKAN"],
+     ["VARNOFUNCKURKI", "CONKOMAKURKAN"],
      # RANGE
      ["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"],
      # FORSTATE
@@ -83,6 +87,18 @@ R = {
     "LOGICOPERATORCONDITIONAL": [["LOGICOPERATOR", "CONDITIONALSTATE"]],
     "KURUNGKIRICONDITIONAL": [["KURUNGKIRI", "CONDITIONAL"]],
 
+    # DEFSTATE========================================================================================
+    "DEFSTATE" : [["HEADERDEF","RETURNULANG"],["HEADERDEF","SS"],["HEADERDER","S"],["D_DEF", "FUNCT2"]],
+    "HEADERDEF" : [["D_DEF", "FUNCT2"]],
+    "D_DEF" : [["def"]],
+    "FUNCT2" : [["DEF_FUNC", "T2"]],
+    "DEF_FUNC" : [["VARNOFUNCKURKI", "ISIFUNCKANAN"]],
+    "ISIFUNCKANAN" : [["ISIFUNC", "KURUNGKANAN"]],
+    "ISIFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "SAMADENGANCONDITIONAL"], ["ISIFUNCKOMA", "ISIFUNC"]],
+    "SAMADENGANCONDITIONAL" : [["SAMADENGAN", "CONDITIONAL"]],
+    "ISIFUNCKOMA" : [["ISIFUNC", "KOMA"]],
+    "RETURNULANG":[["return"], ["RETURNULANG","RETURNULANG"],["RETURNULANG","SS"],["RETURNULANG","S"],["RETURNULANG","D_IFSTATE"],["D_IFSTATE","RETURNULANG"]],
+
     # FORSTATE=====================================================================================
     "FORSTATE" : [["HEADERFOR","BREAKULANG"],["HEADERFOR","SS"],["HEADERFOR","S"],["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"]],
     "HEADERFOR": [["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"]],
@@ -94,11 +110,11 @@ R = {
     "NUMBERT2": [["NUMBER", "T2"]],
     "RANGESTATET2": [["RANGESTATE", "T2"]],
 
-    # Funcion
-    "FUNCSTATE" : [["VARKURKI", "CONKOMAKURKAN"]],
+    # FUNCTIONSTATE===========================================================================================
+    "FUNCSTATE" : [["VARNOFUNCKURKI", "CONKOMAKURKAN"]],
     "CONKOMA" : [["CONSTATEKOMA", "CONKOMA"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "CONSTATEKOMA" : [["CONDITIONALSTATE", "KOMA"]],
-    "VARKURKI" : [["VAR", "KURUNGKIRI"]],
+    "VARNOFUNCKURKI" : [["VARNOFUNC", "KURUNGKIRI"]],
     "CONKOMAKURKAN" : [["CONKOMA", "KURUNGKANAN"]],
 
     # periIFan====================================================================================
@@ -130,6 +146,20 @@ R = {
     "BREAKULANGL_ELIF": [["BREAKULANG","L_ELIF"]],
     "BREAKULANGL_ELSE":[["BREAKULANG","L_ELSE"]],
 
+    #D_IFSTATE===================================================================================
+    "D_IFSTATE": [["IFCON2", "D_SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","RETURNULANG"],["IFCON2","RETURNULANGL_ELSE"],["IFCON2","RETURNULANGL_ELIF"],["IFCON2","D_ELIF"],["IFCON2","D_ELSE"], ["IFCON2", "D_SELSE"],["I_IF", "CON2"]],
+    "D_ELIF": [["D_E_ELIFCON2", "D_SELIF"], ["D_E_ELIFCON2", "D_SELSE"],["RETURNULANGL_ELIF","D_ELIF"],["D_E_ELIFCON2","RETURNULANGL_ELSE"], ["D_E_ELIFCON2", "D_ELIF"],["D_E_ELIFCON2", "SS"],["D_E_ELIFCON2", "D_ELSE"], ["D_E_ELIFCON2", "S"],["D_E_ELIFCON2","RETURNULANG"],["D_E_ELIF", "CON2"]],
+    "D_ELSE": [["D_E_ELSE", "D_T2SS"],["D_E_ELSE","T2"]],
+    "D_SELIF": [["SS", "D_ELIF"], ["S", "D_ELIF"],["RETURNULANG","D_ELIF"]],
+    "D_SELSE": [["SS", "D_ELSE"], ["S", "D_ELSE"],["RETURNULANG","D_ELSE"]],
+    "D_T2SS": [["T2", "SS"], ["T2", "S"], ["T2","RETURNULANG"]],
+    "D_E_ELIFCON2": [["D_E_ELIF", "CON2"]],
+    "D_I_IF": [["if"]],
+    "D_E_ELSE": [["else"]],
+    "D_E_ELIF": [["elif"]],
+    "RETURNULANGL_ELIF": [["RETURNULANG","D_ELIF"]],
+    "RETURNULANGL_ELSE":[["RETURNULANG","D_ELSE"]],
+
     # importing===================================================================================
     "IMPORTSTATE": [["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"]],
     "FROM_IMP": [["FROM", "IMPORT"]],
@@ -155,10 +185,11 @@ R = {
 
     # variabel====================================================================================
     "VAR": [["VARKURKI", "CONKOMAKURKAN"], ["numpy"], ["np"]],
+    "VARNOFUNC" : [["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
-    "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"]],
+    "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"], ["NOT", "I_IN"]],
     "MULTIOP": [["+="], ["-="], ["*="], ["/="], ["%="], ["//="], ["**="], ["&="], ["|="], ["^="], [">>="], ["<<="]],
-    "NOT": [["not"], ["!"]],
+    "NOT": [["not"]],
     "KURUNGKIRI": [["("]],
     "KURUNGKANAN": [[")"]],
     "KOMA": [[","]],
