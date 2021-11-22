@@ -58,7 +58,7 @@ R = {
      ["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], [
          "F_FORVARI_IN", "RANGESTATET2"],
      # WHILESTATE
-     ["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],
+     ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -106,6 +106,20 @@ R = {
     "E_ELIF": [["elif"]],
 
 
+    #L_IFSTATE===================================================================================
+    "L_IFSTATE": [["IFCON2", "L_SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","BREAKULANG"],["IFCON2","BREAKULANGL_ELSE"],["IFCON2","BREAKULANGL_ELIF"],["IFCON2","L_ELIF"],["IFCON2","L_ELSE"], ["IFCON2", "L_SELSE"],["I_IF", "CON2"]],
+    "L_ELIF": [["L_E_ELIFCON2", "L_SELIF"], ["L_E_ELIFCON2", "L_SELSE"],["BREAKULANGL_ELIF","L_ELIF"],["L_E_ELIFCON2","BREAKULANGL_ELSE"], ["L_E_ELIFCON2", "L_ELIF"],["L_E_ELIFCON2", "SS"],["L_E_ELIFCON2", "L_ELSE"], ["L_E_ELIFCON2", "S"],["L_E_ELIFCON2","BREAKULANG"],["L_E_ELIF", "CON2"]],
+    "L_ELSE": [["L_E_ELSE", "L_T2SS"],["L_E_ELSE","T2"]],
+    "L_SELIF": [["SS", "L_ELIF"], ["S", "L_ELIF"],["BREAKULANG","L_ELIF"]],
+    "L_SELSE": [["SS", "L_ELSE"], ["S", "L_ELSE"],["BREAKULANG","L_ELSE"]],
+    "L_T2SS": [["T2", "SS"], ["T2", "S"], ["T2","BREAKULANG"]],
+    "L_E_ELIFCON2": [["L_E_ELIF", "CON2"]],
+    "L_I_IF": [["if"]],
+    "L_E_ELSE": [["else"]],
+    "L_E_ELIF": [["elif"]],
+    "BREAKULANGL_ELIF": [["BREAKULANG","L_ELIF"]],
+    "BREAKULANGL_ELSE":[["BREAKULANG","L_ELSE"]],
+
     # importing===================================================================================
     "IMPORTSTATE": [["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"]],
     "FROM_IMP": [["FROM", "IMPORT"]],
@@ -146,7 +160,9 @@ R = {
     "BOL": [["True"], ["False"]],
 
     # WHILE============================================================================================
-    "WHILESTATE" : [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
+    "WHILESTATE" : [["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
+    "HEADERWHILE": [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
+    "BREAKULANG":[["break"],["BREAKULANG","BREAKULANG"],["BREAKULANG","SS"],["BREAKULANG","S"],["BREAKULANG","L_IFSTATE"],["L_IFSTATE","BREAKULANG"]],
     "W_WHILE" : [["while"]],
 }
 
