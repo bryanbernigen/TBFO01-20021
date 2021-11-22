@@ -58,7 +58,7 @@ R = {
      ["F_FORVARI_IN", "VART2"], ["F_FORVARI_IN", "NUMBERT2"], [
          "F_FORVARI_IN", "RANGESTATET2"],
      # WHILESTATE
-     ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],
+     ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"],
      ["b"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -160,10 +160,12 @@ R = {
     "BOL": [["True"], ["False"]],
 
     # WHILE============================================================================================
-    "WHILESTATE" : [["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
-    "HEADERWHILE": [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"]],
+    "WHILESTATE" : [["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"]],
+    "HEADERWHILE": [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"]],
     "BREAKULANG":[["break"],["BREAKULANG","BREAKULANG"],["BREAKULANG","SS"],["BREAKULANG","S"],["BREAKULANG","L_IFSTATE"],["L_IFSTATE","BREAKULANG"]],
     "W_WHILE" : [["while"]],
+    "WHILEVARIN": [["W_WHILE","VARIN"]],
+    "VARIN":[["VAR","I_IN"]],
 }
 
 # Function to perform the CYK Algorithm
