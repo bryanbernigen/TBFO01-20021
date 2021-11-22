@@ -1,3 +1,6 @@
+#import token reader
+from tokenreader import readtokens
+
 # Python implementation for the
 # CYK Algorithm
 
@@ -149,6 +152,18 @@ R = {
 
 # Function to perform the CYK Algorithm
 
+# tokens -> untuk diperiksa CYK, variables diappend ke CNF
+berhasil, tokens,variables = readtokens()
+for vars in variables :
+    R["S"].append(vars)
+    R["SS"].append(vars)
+    R["CONDITIONALSTATE"].append(vars)
+    R["CONDITIONALNGULANG"].append(vars)
+    R["CONDITIONAL"].append(vars)
+    R["VARNGULANG"].append(vars)
+    R["ISIRANGE"].append(vars)
+    R["VAR"].append(vars)
+    R["NUMBER"].append(vars)
 
 def cykParse(w):
     n = len(w)
