@@ -19,6 +19,7 @@ yang berubah:
 6. ISIRANGE <-- VAR sama NUM
 7. ISIFUNC diisi VARNOFUNC
 8. SS DAN S DITAMBAHIN VAR DAN NUMM
+9. VARNOTITIK
 '''
 
 # Rules of the grammar
@@ -32,6 +33,7 @@ R = {
     "SS":	[["IMPORTSTATE", "SS"], ["IMPORTSTATE", "S"],
            ["IFSTATE", "SS"], ["IFSTATE", "S"],
            ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"],
+           ["CLASSSTATE","SS"],["CLASSSTATE","S"],
            ["NOTSTATE", "SS"], ["NOTSTATE", "S"],
            ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
@@ -49,6 +51,8 @@ R = {
          "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
      # CONDITIONALSTATE
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"],
+     # CLASSSTATE
+     ["C_CLASS","VARNOTITIKT2"],
      # DEFSTATE
      ["HEADERDEF","RETURNULANG"],["HEADERDEF","SS"],["HEADERDER","S"],["D_DEF", "FUNCT2"],
      # NOTSTATE
@@ -79,6 +83,10 @@ R = {
     "ASSIGNMENTNOTUPLESTATE": [["VARMULTIOP", "CONDITIONALSTATE"]],
     "VARMULTIOP": [["VAR", "MULTIOP"]],
 
+    # CLASSSTATE===================================================================================
+    "CLASSSTATE":[["C_CLASS","VARNOTITIKT2"]],
+    "C_CLASS":[["class"]],
+    "VARNOTITIKT2":[["VARNOTITIK","T2"]],
 
     # CONDITIONAL=================================================================================
     "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
@@ -187,6 +195,7 @@ R = {
     "VAR": [["VARNOFUNCKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["numpy"], ["np"]],
     "DOTVAR":[["TITIK","VAR"],["DOTVAR","DOTVAR"]],
     "VARNOFUNC" : [["numpy"], ["np"]],
+    "VARNOTITIK":[["VARNOFUNCKURKI", "CONKOMAKURKAN"],["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"], ["NOT", "I_IN"]],
     "MULTIOP": [["+="], ["-="], ["*="], ["/="], ["%="], ["//="], ["**="], ["&="], ["|="], ["^="], [">>="], ["<<="]],
