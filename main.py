@@ -34,7 +34,7 @@ R = {
            ["ASSIGNSTATE", "SS"], ["ASSIGNSTATE", "S"],
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
            ["CONDITIONALSTATE", "SS"], ["CONDITIONALSTATE", "S"],
-           ["CLASSSTATE","SS"],["CLASSSTATE","S"], 
+           ["CLASSSTATE","SS"],["CLASSSTATE","S"],
            ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
            ["FORSTATE", "SS"], ["FORSTATE", "S"],
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
@@ -47,7 +47,7 @@ R = {
            ["pass"], ["raise"], ["SS", "SS"],
            ["VARONLYKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["SIKUKIRIVARNUMBER","SIKUKANAN"],["KURAWALKIRIDICT","KURAWALKANAN"],["NEGASI","VAR"],
            ["+"],["-"],["NEGASI", "NUMBER"],["NUMBER","NUMBER"]],
-           
+
     "S":
     [
      # ASSIGNSTATE
@@ -282,8 +282,7 @@ def cykParse(w):
             for rhs in rule:
 
                 # If a terminal is found
-                if len(rhs) == 1 and \
-                        rhs[0] == w[j]:
+                if len(rhs) == 1 and rhs[0] == w[j]:
                     T[j][j].add(lhs)
 
         for i in range(j, -1, -1):
@@ -297,16 +296,14 @@ def cykParse(w):
 
                         # If a terminal is found
                         try:
-                            if len(rhs) == 2 and \
-                                    rhs[0] in T[i][k] and \
-                                    rhs[1] in T[k + 1][j]:
+                            if len(rhs) == 2 and rhs[0] in T[i][k] and rhs[1] in T[k + 1][j]:
                                 T[i][j].add(lhs)
                         except:
                             pass
 
     # If word can be formed by rules
     # of given grammar
-    if len(T[0][n-1]) != 0:
+    if 'START' in T[0][n-1]:
         print("Accepted")
     else:
         print("Syntax Error")
@@ -338,6 +335,6 @@ if berhasil :
     for prod in to_append_numbers:
         for num in numbers:
             R[prod].append([num])
-    print(R["SS"])
+
     # Function Call
     cykParse(splitted_tokens)
