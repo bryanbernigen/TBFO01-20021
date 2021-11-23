@@ -325,10 +325,10 @@ if berhasil :
 
     for prod in to_append_variables:
         for var in splitted_variables :
-            R[prod].append(list([var]))
+            R[prod].append([var])
     for prod in to_append_numbers:
         for num in numbers:
-            R[prod].append(list([num]))
-
+            R[prod].append([num])
+    print(R["SS"])
     # Function Call
     cykParse(splitted_tokens)
