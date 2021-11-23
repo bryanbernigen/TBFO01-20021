@@ -97,7 +97,7 @@ R = {
     "ISIFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "SAMADENGANCONDITIONAL"], ["ISIFUNCKOMA", "ISIFUNC"]],
     "SAMADENGANCONDITIONAL" : [["SAMADENGAN", "CONDITIONAL"]],
     "ISIFUNCKOMA" : [["ISIFUNC", "KOMA"]],
-    "RETURNULANG":[["return"], ["RETURNULANG","RETURNULANG"],["RETURNULANG","SS"],["RETURNULANG","S"],["RETURNULANG","D_IFSTATE"],["D_IFSTATE","RETURNULANG"]],
+    "RETURNULANG":[["return"], ["RETURNULANG","RETURNULANG"],["SS","RETURNULANG"],["S","RETURNULANG"],["RETURNULANG","SS"],["RETURNULANG","S"],["RETURNULANG","D_IFSTATE"],["D_IFSTATE","RETURNULANG"],["D_IFSTATE","SS"],["D_IFSTATE","S"],["SS","D_IFSTATE"],["S","D_IFSTATE"]],
 
     # FORSTATE=====================================================================================
     "FORSTATE" : [["HEADERFOR","BREAKULANG"],["HEADERFOR","SS"],["HEADERFOR","S"],["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"]],
@@ -203,7 +203,7 @@ R = {
     # WHILE============================================================================================
     "WHILESTATE" : [["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"]],
     "HEADERWHILE": [["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"]],
-    "BREAKULANG":[["break"], ["continue"],["BREAKULANG","BREAKULANG"],["BREAKULANG","SS"],["BREAKULANG","S"],["BREAKULANG","L_IFSTATE"],["L_IFSTATE","BREAKULANG"]],
+    "BREAKULANG":[["break"], ["continue"],["BREAKULANG","BREAKULANG"],["SS","BREAKULANG"],["S","BREAKULANG"],["BREAKULANG","SS"],["BREAKULANG","S"],["BREAKULANG","L_IFSTATE"],["L_IFSTATE","BREAKULANG"],["L_IFSTATE","SS"],["L_IFSTATE","S"],["SS","L_IFSTATE"],["S","L_IFSTATE"]],
     "W_WHILE" : [["while"]],
     "WHILEVARIN": [["W_WHILE","VARIN"]],
     "VARIN":[["VAR","I_IN"]],
