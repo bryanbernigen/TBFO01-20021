@@ -42,6 +42,7 @@ R = {
            ["WHILESTATE", "SS"], ["WHILESTATE", "S"], 
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
            ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
+           ["WITHSTATE", "SS"], ["WITHSTATE", "S"], 
            ["pass"], ["np"], ["SS", "SS"]],
     "S":
     # IFSTATE
@@ -68,6 +69,8 @@ R = {
     ["HEADERFOR","BREAKULANG"],["HEADERFOR","SS"],["HEADERFOR","S"],["F_FORVARI_IN", "CON2"], ["F_FORVARI_IN", "RANGESTATET2"],
      # WHILESTATE
      ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"],
+     # WITHSTATE
+     ["W_WITH", "VART2"], ["WITH", "ASNOFUNCT2"],
      ["pass"]],
 
     # ASSIGMENT STATE=============================================================================
@@ -218,6 +221,13 @@ R = {
     "W_WHILE" : [["while"]],
     "WHILEVARIN": [["W_WHILE","VARIN"]],
     "VARIN":[["VAR","I_IN"]],
+
+    # WITH================================================================================================
+    "WITHSTATE" : [["W_WITH", "VART2"], ["WITH", "ASNOFUNCT2"]],
+    "ASNOFUNCT2" : [["A_AS", "VARNOFUNCT2"]],
+    "VARNOFUNCT2" : [["VARNOFUNC", "T2"]],
+    "WITH" : [["W_WITH", "VAR"]],
+    "W_WITH" : [["with"]],
 }
 
 # Function to perform the CYK Algorithm
