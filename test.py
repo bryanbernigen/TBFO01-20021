@@ -89,10 +89,10 @@ R = {
 
     # DEFSTATE========================================================================================
     "DEFSTATE" : [["HEADERDEF","RETURNULANG"],["HEADERDEF","SS"],["HEADERDER","S"],["D_DEF", "FUNCT2"]],
-    "HEADERDEF" : [["D_DEF", "FUNCT2"]],
+    "HEADERDEF" : [["D_DEF", "FUNCT2"],],
     "D_DEF" : [["def"]],
     "FUNCT2" : [["DEF_FUNC", "T2"]],
-    "DEF_FUNC" : [["VARNOFUNCKURKI", "ISIFUNCKANAN"]],
+    "DEF_FUNC" : [["VARNOFUNCKURKI", "ISIFUNCKANAN"], ["VARNOFUNCKURKI", "KURUNGKANAN"]],
     "ISIFUNCKANAN" : [["ISIFUNC", "KURUNGKANAN"]],
     "ISIFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "SAMADENGANCONDITIONAL"], ["ISIFUNCKOMA", "ISIFUNC"]],
     "SAMADENGANCONDITIONAL" : [["SAMADENGAN", "CONDITIONAL"]],
