@@ -22,7 +22,7 @@ trans_angka = {
 }
 
 wrong_string_state = ['buang', 'failstr4', 'failstr5', 'failstr7']
-valid_symbols = ['+','-','*','/','//','%', '**','=','+=','-=', '*=', '/=', '%=', '//=', '**=', '&=', '|=', '^=','>>=','<<=','==','!=', '>','<', '>=','<=','&','|','^','~','<<','>>',':','(',')','[',']','{','}']
+valid_symbols = ['\\',',','+','-','*','/','//','%', '**','=','+=','-=', '*=', '/=', '%=', '//=', '**=', '&=', '|=', '^=','>>=','<<=','==','!=', '>','<', '>=','<=','&','|','^','~','<<','>>',':','(',')','[',']','{','}']
 def dfa(transitions,initial,s):
     state = initial
     for c in s:
@@ -44,12 +44,12 @@ def dfa(transitions,initial,s):
         state = transitions[state][tok]
     return state
 
-def readtokens():
-    with open("input.py",'r') as f:
+def readtokens(fname):
+    with open(fname,'r') as f:
         lines = f.readlines()
         words = ""
         brack = ['[',']', '(', ')', ',', "#", '{', '}', ':', '~']
-        ops = ['/', '*', '+', '-', '=', '|', '&', '<', '>', '!']
+        ops = ['/', '*', '+', '-', '=', '|', '&', '<', '>', '!','\\']
         bef = False #Periksa ada ops sebelumnya
         kutbool1 = False
         kutbool2 = False
@@ -186,13 +186,15 @@ def readtokens():
             if tok[0] == "'" or tok[0] == '"':
                 variables.append(tok)
             else:
-                if dfa(trans_table,'start', tok) == 'buang' and not (tok in valid_symbols) and dfa(trans_angka,'start',tok) == 'buang':
+                f_angka = dfa(trans_angka,'start', tok)
+                f_state = dfa(trans_table,'start', tok)
+                if (f_state == 'buang' or f_state == 'last_titik' ) and not (tok in valid_symbols) and f_angka == 'buang':
+                    print(tok)
                     print("SyntaxError: invalid syntax")
                     return False, [], [], []
                     break
                 else :
-                    f_state = dfa(trans_angka,'start', tok)
-                    if not(tok in valid_symbols) and not(tok in keyword.kwlist) and not(f_state == '0koma' or f_state == '1koma'):
+                    if not(tok in valid_symbols) and not(tok in keyword.kwlist) and not(f_angka == '0koma' or f_angka == '1koma'):
                         variables.append(tok)
                     elif not(tok in valid_symbols) and not(tok in keyword.kwlist):
                         numbers.append(tok)

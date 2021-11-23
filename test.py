@@ -39,17 +39,17 @@ R = {
            ["ASSIGNMENTNOTUPLESTATE", "SS"], ["ASSIGNMENTNOTUPLESTATE", "S"],
            ["RANGESTATE", "SS"], ["RANGESTATE", "S"],
            ["FORSTATE", "SS"], ["FORSTATE", "S"],
-           ["WHILESTATE", "SS"], ["WHILESTATE", "S"], 
+           ["WHILESTATE", "SS"], ["WHILESTATE", "S"],
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
            ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
-           ["WITHSTATE", "SS"], ["WITHSTATE", "S"], 
+           ["WITHSTATE", "SS"], ["WITHSTATE", "S"],
            ["pass"], ["raise"], ["np"], ["SS", "SS"]],
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
      # IMPORTSTATE
      ["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VARNOFUNC"],
-     # CONDITIONALSTATE     
+     # CONDITIONALSTATE
      ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"],["KURAWALKIRICONDITIONAL","KURAWALKANAN"],["SIKUKIRICONDITIONAL","SIKUKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["SIKUKIRIVARNUMBER","SIKUKANAN"],["KURAWALKIRIDICT","KURAWALKANAN"],["numpy"], ["np"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"],
      # CLASSSTATE
      ["C_CLASS","VARNOTITIKT2"],
@@ -298,18 +298,36 @@ def cykParse(w):
     # If word can be formed by rules
     # of given grammar
     if len(T[0][n-1]) != 0:
-        print("True")
+        print("Accepted")
     else:
-        print("False")
+        print("Syntax Error")
 
 # Driver Code
+fname = input("Masukkan nama file yang akan ditest: ")
+berhasil, tokens,variables, numbers = readtokens(fname)
 
+splitted_tokens = ['.']
+for tok in tokens:
+    if tok in variables:
+        split_tokens = [y for x in tok.split('.') for y in (x, '.')]
+        splitted_tokens.extend(split_tokens[:-1])
+    else :
+        splitted_tokens.append(tok)
 
-# Given string
-a = input()
-b = ". "
-b += a
-w = b.split()
+splitted_variables = []
+for vars in variables:
+    splitted_variables.extend(vars.split('.'))
+splitted_variables = list(set(splitted_variables))
+
+to_append_variables = ["S","CONDITIONALNGULANG","CONDITIONAL","CONKOMA","CONDITIONALSTATE","VAR","VARONLY","VARNOFUNC","VARNOTITIK","ISIRANGE","SS","ISIFUNC"]
+to_append_numbers = ["S", "SS", "CONDITIONALNGULANG","CONDITIONALSTATE", "CONDITIONAL","CONKOMA","ISIRANGE","NUMBER"]
+
+for prod in to_append_variables:
+    for var in splitted_variables :
+        R[prod].append(list([var]))
+for prod in to_append_numbers:
+    for num in numbers:
+        R[prod].append(list([num]))
 
 # Function Call
-cykParse(w)
+cykParse(splitted_tokens)
