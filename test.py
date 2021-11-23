@@ -17,7 +17,7 @@ yang berubah:
 4. conditional
 5. varngulang
 6. ISIRANGE <-- VAR sama NUM
-7. ISIFUNC diisi VARNOFUNC
+7. ISIFUNC diisi VARONLY
 8. SS DAN S DITAMBAHIN VAR DAN NUMM
 9. VARNOTITIK
 '''
@@ -47,10 +47,9 @@ R = {
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
      # IMPORTSTATE
-     ["FROM_IMP", "AS"], ["IMPORT", "AS"], [
-         "FROM", "IMPORT"], ["I_IMPORT", "VAR"],
+     ["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VARNOFUNC"],
      # CONDITIONALSTATE
-     ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"],
+     ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"],
      # CLASSSTATE
      ["C_CLASS","VARNOTITIKT2"],
      # DEFSTATE
@@ -62,7 +61,7 @@ R = {
      # ASSIGNMENTNOTUPLESTATE
      ["VARMULTIOP", "CONDITIONALSTATE"],
      # FUNCSTATE
-     ["VARNOFUNCKURKI", "CONKOMAKURKAN"],
+     ["VARONLYKURKI", "CONKOMAKURKAN"],
      # RANGE
      ["R_RANGEKURUNGKIRI", "ISIRANGEKURUNGKANAN"],
      # FORSTATE
@@ -74,9 +73,9 @@ R = {
     # ASSIGMENT STATE=============================================================================
     "ASSIGNSTATE": [["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"]],
     "VARNGULANGASSIGNMENT": [["VARNGULANG", "SAMADENGAN"]],
-    "VARNGULANG": [["VARKOMA", "VARNOFUNC"], ["numpy"], ["np"]],
-    "VARKOMA": [["VARNOFUNC", "KOMA"]],
-    "CONDITIONALNGULANG": [["CONDITIONALSTATEKOMA", "CONDITIONALSTATE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "VARNGULANG": [["VARKOMA", "VARONLY"], ["numpy"], ["np"]],
+    "VARKOMA": [["VARONLY", "KOMA"]],
+    "CONDITIONALNGULANG": [["CONDITIONALSTATEKOMA", "CONDITIONALSTATE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "CONDITIONALSTATEKOMA": [["CONDITIONALSTATE", "KOMA"]],
 
     # ASSIGNMENT NOTUPLE===========================================================================
@@ -89,8 +88,8 @@ R = {
     "VARNOTITIKT2":[["VARNOTITIK","T2"]],
 
     # CONDITIONAL=================================================================================
-    "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
-    "CONDITIONAL": [["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "CONDITIONALSTATE": [["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "CONDITIONAL": [["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "OPERATORCONDITIONAL": [["OPERATOR", "CONDITIONAL"]],
     "LOGICOPERATORCONDITIONAL": [["LOGICOPERATOR", "CONDITIONALSTATE"]],
     "KURUNGKIRICONDITIONAL": [["KURUNGKIRI", "CONDITIONAL"]],
@@ -100,9 +99,9 @@ R = {
     "HEADERDEF" : [["D_DEF", "FUNCT2"],],
     "D_DEF" : [["def"]],
     "FUNCT2" : [["DEF_FUNC", "T2"]],
-    "DEF_FUNC" : [["VARNOFUNCKURKI", "ISIFUNCKANAN"], ["VARNOFUNCKURKI", "KURUNGKANAN"]],
+    "DEF_FUNC" : [["VARONLYKURKI", "ISIFUNCKANAN"], ["VARONLYKURKI", "KURUNGKANAN"]],
     "ISIFUNCKANAN" : [["ISIFUNC", "KURUNGKANAN"]],
-    "ISIFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "SAMADENGANCONDITIONAL"], ["ISIFUNCKOMA", "ISIFUNC"]],
+    "ISIFUNC" : [["numpy"], ["np"], ["VARONLY", "SAMADENGANCONDITIONAL"], ["ISIFUNCKOMA", "ISIFUNC"]],
     "SAMADENGANCONDITIONAL" : [["SAMADENGAN", "CONDITIONAL"]],
     "ISIFUNCKOMA" : [["ISIFUNC", "KOMA"]],
     "RETURNULANG":[["return"], ["RETURNULANG","RETURNULANG"],["SS","RETURNULANG"],["S","RETURNULANG"],["RETURNULANG","SS"],["RETURNULANG","S"],["RETURNULANG","D_IFSTATE"],["D_IFSTATE","RETURNULANG"],["D_IFSTATE","SS"],["D_IFSTATE","S"],["SS","D_IFSTATE"],["S","D_IFSTATE"]],
@@ -119,10 +118,10 @@ R = {
     "RANGESTATET2": [["RANGESTATE", "T2"]],
 
     # FUNCTIONSTATE===========================================================================================
-    "FUNCSTATE" : [["VARNOFUNCKURKI", "CONKOMAKURKAN"]],
-    "CONKOMA" : [["CONSTATEKOMA", "CONKOMA"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "FUNCSTATE" : [["VARONLYKURKI", "CONKOMAKURKAN"]],
+    "CONKOMA" : [["CONSTATEKOMA", "CONKOMA"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "CONSTATEKOMA" : [["CONDITIONALSTATE", "KOMA"]],
-    "VARNOFUNCKURKI" : [["VARNOFUNC", "KURUNGKIRI"]],
+    "VARONLYKURKI" : [["VARONLY", "KURUNGKIRI"]],
     "CONKOMAKURKAN" : [["CONKOMA", "KURUNGKANAN"],[")"]],
 
     # periIFan====================================================================================
@@ -169,11 +168,11 @@ R = {
     "RETURNULANGL_ELSE":[["RETURNULANG","D_ELSE"]],
 
     # importing===================================================================================
-    "IMPORTSTATE": [["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VAR"]],
+    "IMPORTSTATE": [["FROM_IMP", "AS"], ["IMPORT", "AS"], ["FROM", "IMPORT"], ["I_IMPORT", "VARNOFUNC"]],
     "FROM_IMP": [["FROM", "IMPORT"]],
-    "AS": [["A_AS", "VAR"]],
-    "FROM": [["F_FROM", "VAR"]],
-    "IMPORT": [["I_IMPORT", "VAR"]],
+    "AS": [["A_AS", "VARONLY"]],
+    "FROM": [["F_FROM", "VARNOFUNC"]],
+    "IMPORT": [["I_IMPORT", "VARONLY"]],
     "A_AS": [["as"]],
     "F_FROM": [["from"]],
     "I_IMPORT": [["import"]],
@@ -183,7 +182,7 @@ R = {
     "R_RANGEKURUNGKIRI": [["R_RANGE", "KURUNGKIRI"]],
     "ISIRANGEKURUNGKANAN": [["ISIRANGE", "KURUNGKANAN"]],
     "R_RANGE": [["range"]],
-    "ISIRANGE": [["CONDITIONALSTATE", "NGULANGISIRANGE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "ISIRANGE": [["CONDITIONALSTATE", "NGULANGISIRANGE"], ["KURUNGKIRINOT", "KURUNGKANAN"], ["NOT", "CONDITIONALSTATE"], ["KURUNGKIRICONDITIONAL", "KURUNGKANAN"], ["CONDITIONAL", "OPERATORCONDITIONAL"], ["CONDITIONAL", "LOGICOPERATORCONDITIONAL"], ["VARONLYKURKI", "CONKOMAKURKAN"], ["True"], ["False"], ["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
     "NGULANGISIRANGE": [["KOMA", "ISIRANGE"]],
 
     # NOTSTATE=====================================================================================
@@ -192,10 +191,12 @@ R = {
     "KURUNGKIRINOT": [["KURUNGKIRI", "NOTSESUATU"]],
 
     # variabel====================================================================================
-    "VAR": [["VARNOFUNCKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["numpy"], ["np"]],
+    "VAR": [["VARONLYKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["numpy"], ["np"]],
     "DOTVAR":[["TITIK","VAR"],["DOTVAR","DOTVAR"]],
-    "VARNOFUNC" : [["numpy"], ["np"]],
-    "VARNOTITIK":[["VARNOFUNCKURKI", "CONKOMAKURKAN"],["numpy"], ["np"]],
+    "VARONLY" : [["numpy"], ["np"]],
+    "VARNOFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "DOTVARNOFUNC"]],
+    "DOTVARNOFUNC" : [["TITIK", "VARNOFUNC"], ["DOTVARNOFUNC", "DOTVARNOFUNC"]],
+    "VARNOTITIK":[["VARONLYKURKI", "CONKOMAKURKAN"],["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"], ["NOT", "I_IN"]],
     "MULTIOP": [["+="], ["-="], ["*="], ["/="], ["%="], ["//="], ["**="], ["&="], ["|="], ["^="], [">>="], ["<<="]],
