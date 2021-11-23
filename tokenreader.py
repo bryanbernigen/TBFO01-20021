@@ -1,22 +1,24 @@
 import keyword
 
 trans_table = {
-    'start':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr'},
-    'var':{'a' : 'var', 'h' : 'var', 'o' : 'buang','k' : 'buang'},
-    'buang':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'buang' },
-    'awalstr':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x2' },
-    'str6x2':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'akomen' },
-    'akomen':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr4' },
-    'failstr4':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr5' },
-    'failstr5':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x' },
-    'str6x':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr7' },
-    'failstr7':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x2' }
+    'start':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr', 't' : 'last_titik'},
+    'last_titik':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr', 't' : 'buang'},
+    'var':{'a' : 'var', 'h' : 'var', 'o' : 'buang','k' : 'buang', 't' : 'last_titik'},
+    'buang':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'buang' , 't' : 'buang'},
+    'awalstr':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x2', 't' : 'buang' },
+    'str6x2':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'akomen', 't' : 'buang' },
+    'akomen':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr4', 't' : 'buang' },
+    'failstr4':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr5', 't' : 'buang' },
+    'failstr5':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x', 't' : 'buang' },
+    'str6x':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'failstr7' , 't' : 'buang'},
+    'failstr7':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x2', 't' : 'buang' }
 }
 
 trans_angka = {
-    'start' : {'a' : 'angka', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang'},
-    'angka' : {'a' : 'angka', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang'},
-    'buang' : {'a' : 'buang', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang'},
+    'start' : {'a' : '0koma', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang', 't' : '1koma'},
+    '0koma' : {'a' : '0koma', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang', 't' : '1koma'},
+    '1koma' : {'a' : '1koma', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang', 't' : 'buang'},
+    'buang' : {'a' : 'buang', 'h' : 'buang', 'o' : 'buang', 'k' : 'buang', 't' : 'buang'},
 }
 
 wrong_string_state = ['buang', 'failstr4', 'failstr5', 'failstr7']
@@ -35,6 +37,8 @@ def dfa(transitions,initial,s):
             tok = 'h'
         elif asc == 34 or asc == 39:
             tok = 'k'
+        elif asc == 46:
+            tok = 't'
         else:
             tok = 'o'
         state = transitions[state][tok]
@@ -187,7 +191,8 @@ def readtokens():
                     return False, [], [], []
                     break
                 else :
-                    if not(tok in valid_symbols) and not(tok in keyword.kwlist) and not(dfa(trans_angka,'start', tok) == 'angka'):
+                    f_state = dfa(trans_angka,'start', tok)
+                    if not(tok in valid_symbols) and not(tok in keyword.kwlist) and not(f_state == '0koma' or f_state == '1koma'):
                         variables.append(tok)
                     elif not(tok in valid_symbols) and not(tok in keyword.kwlist):
                         numbers.append(tok)
