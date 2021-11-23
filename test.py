@@ -184,7 +184,8 @@ R = {
     "KURUNGKIRINOT": [["KURUNGKIRI", "NOTSESUATU"]],
 
     # variabel====================================================================================
-    "VAR": [["VARNOFUNCKURKI", "CONKOMAKURKAN"], ["numpy"], ["np"]],
+    "VAR": [["VARNOFUNCKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["numpy"], ["np"]],
+    "DOTVAR":[["TITIK","VAR"],["DOTVAR","DOTVAR"]],
     "VARNOFUNC" : [["numpy"], ["np"]],
     "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"], ["NOT", "I_IN"]],
