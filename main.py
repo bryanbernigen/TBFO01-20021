@@ -307,7 +307,6 @@ def cykParse(w):
         print("Accepted")
     else:
         print("Syntax Error")
-    print(T[0][n-1])
 
 # Driver Code
 fname = input("Masukkan nama file yang akan ditest: ")
