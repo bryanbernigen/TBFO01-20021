@@ -306,28 +306,29 @@ def cykParse(w):
 fname = input("Masukkan nama file yang akan ditest: ")
 berhasil, tokens,variables, numbers = readtokens(fname)
 
-splitted_tokens = ['.']
-for tok in tokens:
-    if tok in variables:
-        split_tokens = [y for x in tok.split('.') for y in (x, '.')]
-        splitted_tokens.extend(split_tokens[:-1])
-    else :
-        splitted_tokens.append(tok)
+if berhasil :
+    splitted_tokens = ['.']
+    for tok in tokens:
+        if tok in variables:
+            split_tokens = [y for x in tok.split('.') for y in (x, '.')]
+            splitted_tokens.extend(split_tokens[:-1])
+        else :
+            splitted_tokens.append(tok)
 
-splitted_variables = []
-for vars in variables:
-    splitted_variables.extend(vars.split('.'))
-splitted_variables = list(set(splitted_variables))
+    splitted_variables = []
+    for vars in variables:
+        splitted_variables.extend(vars.split('.'))
+    splitted_variables = list(set(splitted_variables))
 
-to_append_variables = ["S","CONDITIONALNGULANG","CONDITIONAL","CONKOMA","CONDITIONALSTATE","VAR","VARONLY","VARNOFUNC","VARNOTITIK","ISIRANGE","SS","ISIFUNC"]
-to_append_numbers = ["S", "SS", "CONDITIONALNGULANG","CONDITIONALSTATE", "CONDITIONAL","CONKOMA","ISIRANGE","NUMBER"]
+    to_append_variables = ["S","CONDITIONALNGULANG","CONDITIONAL","CONKOMA","CONDITIONALSTATE","VAR","VARONLY","VARNOFUNC","VARNOTITIK","ISIRANGE","SS","ISIFUNC"]
+    to_append_numbers = ["S", "SS", "CONDITIONALNGULANG","CONDITIONALSTATE", "CONDITIONAL","CONKOMA","ISIRANGE","NUMBER"]
 
-for prod in to_append_variables:
-    for var in splitted_variables :
-        R[prod].append(list([var]))
-for prod in to_append_numbers:
-    for num in numbers:
-        R[prod].append(list([num]))
+    for prod in to_append_variables:
+        for var in splitted_variables :
+            R[prod].append(list([var]))
+    for prod in to_append_numbers:
+        for num in numbers:
+            R[prod].append(list([num]))
 
-# Function Call
-cykParse(splitted_tokens)
+    # Function Call
+    cykParse(splitted_tokens)
