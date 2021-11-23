@@ -43,7 +43,7 @@ R = {
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
            ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
            ["WITHSTATE", "SS"], ["WITHSTATE", "S"], 
-           ["pass"], ["np"], ["SS", "SS"]],
+           ["pass"], ["raise"], ["np"], ["SS", "SS"]],
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
@@ -72,6 +72,7 @@ R = {
      # WITHSTATE
      ["W_WITH", "VART2"], ["WITH", "ASNOFUNCT2"],
      ["pass"]],
+
 
     # ASSIGMENT STATE=============================================================================
     "ASSIGNSTATE": [["VARNGULANGASSIGNMENT", "CONDITIONALNGULANG"]],
