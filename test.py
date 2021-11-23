@@ -43,7 +43,9 @@ R = {
            ["FUNCSTATE", "SS"], ["FUNCSTATE", "S"],
            ["DEFSTATE", "SS"], ["DEFSTATE", "S"],
            ["WITHSTATE", "SS"], ["WITHSTATE", "S"],
-           ["pass"], ["raise"], ["np"], ["SS", "SS"]],
+           ["pass"], ["raise"], ["np"], ["SS", "SS"],
+           ["+"],["-"],["NEGASI", "NUMBER"],["NUMBER","NUMBER"]],
+           
     "S":
     # IFSTATE
     [["IFCON2", "SELIF"], ["IFCON2", "SS"], ["IFCON2", "S"],["IFCON2","ELIF"],["IFCON2","ELSE"], ["IFCON2", "SELSE"],["I_IF", "CON2"],
@@ -71,7 +73,7 @@ R = {
      ["HEADERWHILE","BREAKULANG"],["HEADERWHILE","SS"],["HEADERWHILE","S"],["W_WHILE", "CON2"], ["W_WHILE", "RANGESTATET2"],["WHILEVARIN","RANGESTATET2"],
      # WITHSTATE
      ["W_WITH", "VART2"], ["WITH", "ASNOFUNCT2"],
-     ["pass"]],
+     ["+"],["-"],["NEGASI", "NUMBER"],["NUMBER","NUMBER"],["pass"]],
 
 
     # ASSIGMENT STATE=============================================================================
@@ -197,13 +199,14 @@ R = {
     "KURUNGKIRINOT": [["KURUNGKIRI", "NOTSESUATU"]],
 
     # variabel====================================================================================
-    "VAR": [["VARONLYKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["SIKUKIRIVARNUMBER","SIKUKANAN"],["KURAWALKIRIDICT","KURAWALKANAN"],["numpy"], ["np"]],
-    "DOTVAR":[["TITIK","VAR"],["DOTVAR","DOTVAR"]],
-    "VARONLY" : [["numpy"], ["np"]],
-    "VARNOFUNC" : [["numpy"], ["np"], ["VARNOFUNC", "DOTVARNOFUNC"]],
-    "DOTVARNOFUNC" : [["TITIK", "VARNOFUNC"], ["DOTVARNOFUNC", "DOTVARNOFUNC"]],
-    "VARNOTITIK":[["VARONLYKURKI", "CONKOMAKURKAN"],["numpy"], ["np"]],
-    "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"]],
+    "VAR": [["VARONLYKURKI", "CONKOMAKURKAN"],["VAR","DOTVAR"],["SIKUKIRIVARNUMBER","SIKUKANAN"],["KURAWALKIRIDICT","KURAWALKANAN"],["NEGASI","VAR"]],
+    "DOTVAR":[["NEGASI","DOTVAR"],["TITIK","VAR"],["DOTVAR","DOTVAR"]],
+    "VARONLY" : [["NEGASI","VARONLY"]],
+    "VARNOFUNC" : [["NEGASI","VARNOFUNC"], ["VARNOFUNC", "DOTVARNOFUNC"]],
+    "DOTVARNOFUNC" : [["NEGASI","DOTVARNOFUNC"],["TITIK", "VARNOFUNC"], ["DOTVARNOFUNC", "DOTVARNOFUNC"]],
+    "VARNOTITIK":[["VARONLYKURKI", "CONKOMAKURKAN"],["NEGASI","VARNOTITIK"]],
+    "NEGASI":[["~"],["NEGASI","NEGASI"]],
+    "OPERATOR": [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["//"], [">>"], ["<<"],["&"],["|"],["^"]],
     "LOGICOPERATOR": [["=="], ["!="], ["<"], ["<="], [">"], [">="], ["is"], ["and"], ["or"], ["NOT", "I_IN"]],
     "MULTIOP": [["+="], ["-="], ["*="], ["/="], ["%="], ["//="], ["**="], ["&="], ["|="], ["^="], [">>="], ["<<="]],
     "NOT": [["not"]],
@@ -224,7 +227,7 @@ R = {
     "T2": [[":"]],
 
     # NUMBER========================================================================================
-    "NUMBER": [["0"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["NUMBER", "NUMBER"]],
+    "NUMBER": [["+"],["-"],["NEGASI", "NUMBER"],["NUMBER","NUMBER"]],
     "BOL": [["True"], ["False"]],
 
     # WHILE============================================================================================
