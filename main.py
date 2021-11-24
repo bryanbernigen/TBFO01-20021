@@ -186,7 +186,7 @@ R = {
     "FROM_IMP": [["FROM", "IMPORT"]],
     "AS": [["A_AS", "VARONLY"]],
     "FROM": [["F_FROM", "VARNOFUNC"]],
-    "IMPORT": [["I_IMPORT", "VARONLY"]],
+    "IMPORT": [["I_IMPORT", "VARNOFUNC"]],
     "A_AS": [["as"]],
     "F_FROM": [["from"]],
     "I_IMPORT": [["import"]],
