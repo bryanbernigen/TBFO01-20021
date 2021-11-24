@@ -140,7 +140,6 @@ def readtokens(fname):
             elif tok == "\\n":
                 StartHash = False
                 line += 1
-                continue
             if StartHash == False :
                 newTokens.append(tok)
                 line_counter.append(line)
@@ -166,7 +165,11 @@ def readtokens(fname):
             if StartStr2 == False :
                 Tokens.append(tok)
             else:
-                newStr += tok
+                if tok == "\\n" :
+                    print("SyntaxError: EOL while scanning string literal in line "+ str(line_counter[idxstart]))
+                    return False, [], [], []
+                else :
+                    newStr += tok
 
         newTokens = []
         StartStr1 = False
@@ -188,10 +191,16 @@ def readtokens(fname):
                 StartStr1 = not StartStr1
                 continue
             if StartStr1 == False :
-                newTokens.append(tok)
+                if tok == "\\n" :
+                    continue
+                else :
+                    newTokens.append(tok)
             else:
-                newStr += tok
-        #print(newTokens)
+                if tok == "\\n" :
+                    print("SyntaxError: EOL while scanning string literal in line "+ str(line_counter[idxstart]))
+                    return False, [], [], []
+                else :
+                    newStr += tok
 
         if StartStr1 == True or StartStr2 == True :
             print("SyntaxError: EOL while scanning string literal")
