@@ -1,4 +1,4 @@
-def f(x)                   #deklarasi fungsi
+def 4f(x):                  #deklarasi fungsi
     y = x**2 - 2*x + 5
     return y
 
