@@ -157,7 +157,8 @@ def readtokens(fname):
                 idx -= 1
         #print(Tokens)
         if StartKomen2 == True or StartKomen1 == True:
-            print("SyntaxError: EOF while scanning triple-quoted string literal in line " + str(line_counter[-1]))
+            print("SyntaxError: EOF while scanning triple-quoted string literal in line " + str(line_counter[-1]+1))
+            print(line_counter)
             return False, [], [], []
 
         Tokens = []
