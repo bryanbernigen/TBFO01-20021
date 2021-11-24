@@ -85,51 +85,9 @@ def readtokens(fname):
                             words += " " + char
                             bef = False
                         else : words+= char
+
         Tokens = words.split()
 
-        #print(Tokens)
-        StartKomen2 = False
-        StartKomen1 = False
-        newTokens = []
-        # hapus komen """ """
-        for tok in Tokens:
-            if tok[0] == '"':
-                state = dfa(trans_table, 'start',tok)
-                if state == 'akomen' :
-                    StartKomen2 = not StartKomen2
-                elif state in wrong_string_state:
-                    print("SyntaxError: EOF while scanning triple-quoted string literal")
-                    return False, [], [], []
-                    break
-                else:
-                    newTokens.append(tok)
-                continue
-
-            if StartKomen2 == False :
-                newTokens.append(tok)
-
-        Tokens = []
-        for tok in newTokens:
-            if tok[0] == "'":
-                state = dfa(trans_table, 'start',tok)
-                if state == 'akomen' :
-                    StartKomen1 = not StartKomen1
-                elif state in wrong_string_state :
-                    print("SyntaxError: EOF while scanning triple-quoted string literal")
-                    return False, [], [], []
-                    break
-                else:
-                    Tokens.append(tok)
-                continue
-
-            if StartKomen1 == False :
-                Tokens.append(tok)
-        #print(Tokens)
-        if StartKomen2 == True or StartKomen1 == True:
-            print("SyntaxError: EOF while scanning triple-quoted string literal")
-            return False, [], [], []
-
-        # Delete komen #
         StartHash = False
         newTokens = []
         line_counter = []
@@ -143,7 +101,65 @@ def readtokens(fname):
             if StartHash == False :
                 newTokens.append(tok)
                 line_counter.append(line)
+
+
         #print(newTokens)
+
+        #print(Tokens)
+        StartKomen2 = False
+        StartKomen1 = False
+        Tokens = []
+        # hapus komen """ """
+        idx = -1
+        for tok in newTokens:
+            idx+=1
+            if tok[0] == '"':
+                state = dfa(trans_table, 'start',tok)
+                if state == 'akomen' :
+                    StartKomen2 = not StartKomen2
+                    del line_counter[idx]
+                    idx -= 1
+                elif state in wrong_string_state:
+                    print("SyntaxError: EOF while scanning triple-quoted string literal")
+                    return False, [], [], []
+                    break
+                else:
+                    Tokens.append(tok)
+                continue
+
+            if StartKomen2 == False :
+                Tokens.append(tok)
+            else:
+                del line_counter[idx]
+                idx-=1
+
+        newTokens = []
+        idx = -1
+        for tok in Tokens:
+            idx+=1
+            if tok[0] == "'":
+                state = dfa(trans_table, 'start',tok)
+                if state == 'akomen' :
+                    StartKomen1 = not StartKomen1
+                    del line_counter[idx]
+                    idx -=1
+                elif state in wrong_string_state :
+                    print("SyntaxError: EOF while scanning triple-quoted string literal")
+                    return False, [], [], []
+                    break
+                else:
+                    newTokens.append(tok)
+                continue
+            if StartKomen1 == False :
+                newTokens.append(tok)
+            else :
+                del line_counter[idx]
+                idx -= 1
+        #print(Tokens)
+        if StartKomen2 == True or StartKomen1 == True:
+            print("SyntaxError: EOF while scanning triple-quoted string literal in line " + str(line_counter[-1]))
+            return False, [], [], []
+
         Tokens = []
         StartStr2 = False
         idxstart = 0
@@ -192,6 +208,8 @@ def readtokens(fname):
                 continue
             if StartStr1 == False :
                 if tok == "\\n" :
+                    del line_counter[idx]
+                    idx -= 1
                     continue
                 else :
                     newTokens.append(tok)
