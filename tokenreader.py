@@ -2,7 +2,7 @@ import keyword
 
 trans_table = {
     'start':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr', 't' : 'last_titik'},
-    'last_titik':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'awalstr', 't' : 'buang'},
+    'last_titik':{'a' : 'buang', 'h' : 'var', 'o' : 'buang', 'k' : 'buang', 't' : 'buang'},
     'var':{'a' : 'var', 'h' : 'var', 'o' : 'buang','k' : 'buang', 't' : 'last_titik'},
     'buang':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'buang' , 't' : 'buang'},
     'awalstr':{'a' : 'buang', 'h' : 'buang', 'o' : 'buang','k' : 'str6x2', 't' : 'buang' },
@@ -132,24 +132,34 @@ def readtokens(fname):
         # Delete komen #
         StartHash = False
         newTokens = []
+        line_counter = []
+        line = 1
         for tok in Tokens:
             if tok == "#":
                 StartHash = True
             elif tok == "\\n":
                 StartHash = False
+                line += 1
                 continue
             if StartHash == False :
                 newTokens.append(tok)
+                line_counter.append(line)
         #print(newTokens)
-
         Tokens = []
         StartStr2 = False
+        idxstart = 0
+        idxlast = 0
+        idx = -1
         for tok in newTokens:
+            idx += 1
             if tok == '"' :
                 if StartStr2 == False:
                     newStr = '"'
+                    idxstart = idx
                 else :
                     newStr += '"'
+                    idxlast = idx
+                    del line_counter[idxstart:idxlast]
                     Tokens.append(newStr)
                 StartStr2 = not StartStr2
                 continue
@@ -158,15 +168,22 @@ def readtokens(fname):
             else:
                 newStr += tok
 
-        #print(Tokens)
         newTokens = []
         StartStr1 = False
+        idxstart = 0
+        idxlast = 0
+        idx = -1
         for tok in Tokens:
+            idx +=1
             if tok == "'" :
                 if StartStr1 == False:
                     newStr = '"'
+                    idxstart = idx
                 else :
                     newStr += '"'
+                    idxlast = idx
+                    del line_counter[idxstart:idxlast]
+                    idx -= idxlast-idxstart
                     newTokens.append(newStr)
                 StartStr1 = not StartStr1
                 continue
@@ -182,15 +199,18 @@ def readtokens(fname):
 
         variables = []
         numbers = []
+        fail_states = ["buang","failstr7", "failstr4", "failstr5","last_titik"]
+        idx = -1
         for tok in newTokens :
+            idx +=1
             if tok[0] == "'" or tok[0] == '"':
                 variables.append(tok)
             else:
                 f_angka = dfa(trans_angka,'start', tok)
                 f_state = dfa(trans_table,'start', tok)
-                if (f_state == 'buang' or f_state == 'last_titik' ) and not (tok in valid_symbols) and f_angka == 'buang':
+                if (f_state in fail_states) and not (tok in valid_symbols) and f_angka == 'buang':
                     print(tok)
-                    print("SyntaxError: invalid syntax")
+                    print("SyntaxError: invalid syntax in line " + str(line_counter[idx]))
                     return False, [], [], []
                     break
                 else :
