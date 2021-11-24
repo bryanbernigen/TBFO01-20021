@@ -26,7 +26,7 @@ yang berubah:
 R = {
     # STARTSTATE=================================================================================
     # STARTSTATE
-    "START": [["TITIK", "SS"], ["TITIK", "S"]],
+    "START": [["TITIK", "SS"], ["TITIK", "S"],["."]],
     "TITIK": [["."]],
 
     # harus bisa mangil semua state
